@@ -1,4 +1,4 @@
-
+#Creation of users 
 resource "aws_iam_user" "genomics_users" {
     count = "${length(var.username)}"
     name = "${element(var.username,count.index)}"
@@ -14,6 +14,7 @@ resource "aws_iam_access_key" "genomics_key" {
     ]
 }
 
+#Creation of user groups to which policies are then applied
 resource "aws_iam_group" "devgrp" {
   name = "dev"
   path = "/system/"
