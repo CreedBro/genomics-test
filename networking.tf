@@ -1,9 +1,10 @@
+#Creation of a new VPC
 resource "aws_vpc" "secondary" {
   cidr_block       = var.vpc_cidr
   instance_tenancy = "default"
 
   tags = {
-    Name = "main"
+    Name = "Secondary-VPC"
   }
 }
 
@@ -12,15 +13,16 @@ resource "aws_vpc" "secondary" {
   vpc_id              = aws_vpc.secondary.id
 }*/
 
-
+#Creation of IGW for Secondary VPC
 resource "aws_internet_gateway" "secondary" {
   vpc_id = aws_vpc.secondary.id
 
   tags = {
-    Name = "secondary"
+    Name = "Secondary-IGW"
   }
 }
 
+#Creationn of S3 Gateway to avoid public access of S3 for security reasons
 resource "aws_vpc_endpoint" "s3" {
   vpc_id       = aws_vpc.secondary.id
   service_name = "com.amazonaws.us-east-1.s3"
@@ -36,7 +38,7 @@ resource "aws_subnet" "secondary" {
   cidr_block = var.subnet_cidr
 
   tags = {
-    Name = "secondary_public"
+    Name = "Secondary_Public_Subnet"
   }
 }
 

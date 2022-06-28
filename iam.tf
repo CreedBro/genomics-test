@@ -1,4 +1,4 @@
-#Creation of users 
+#Creation of users. List of names and count used to improve scalability
 resource "aws_iam_user" "genomics_users" {
     count = "${length(var.username)}"
     name = "${element(var.username,count.index)}"
@@ -6,6 +6,7 @@ resource "aws_iam_user" "genomics_users" {
 
 }
 
+#Creation of Access Keys
 resource "aws_iam_access_key" "genomics_key" {
     count = "${length(var.username)}"
     user = "${element(var.username,count.index)}"
@@ -14,7 +15,8 @@ resource "aws_iam_access_key" "genomics_key" {
     ]
 }
 
-#Creation of user groups to which policies are then applied
+#Creation of user groups to which policies are then applied and users are added
+#This is to avoid in-line policies on users. 
 resource "aws_iam_group" "devgrp" {
   name = "dev"
   path = "/system/"

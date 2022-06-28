@@ -33,6 +33,7 @@ cat > templates/index.html <<EOF
 </html>
 EOF
 
+#Change value of <BUCKET> to your s3 bucket name. A follow-up commit is set to automate this.
 cat > app.py <<EOF
 from flask import Flask, render_template
 import boto3, botocore

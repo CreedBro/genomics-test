@@ -1,13 +1,14 @@
-
+#Bucket Creation
 resource "aws_s3_bucket" "genomics_b" {
   bucket = var.s3_bucket
   acl    = "private"
 
   versioning {
-    enabled = true
+    enabled = false
   }
 }
 
+#Auto upload of coffee image
 resource "aws_s3_object" "object" {
   bucket = aws_s3_bucket.genomics_b.id
   key    = "pexels-lood-goosen-1235706.jpg"
@@ -16,6 +17,7 @@ resource "aws_s3_object" "object" {
 
 }
 
+#Configure bucket public access settings
 resource "aws_s3_bucket_public_access_block" "public_block" {
   bucket = aws_s3_bucket.genomics_b.id
 
@@ -24,11 +26,13 @@ resource "aws_s3_bucket_public_access_block" "public_block" {
   block_public_policy = true
 }
 
+#Key for SSE
 resource "aws_kms_key" "mykey" {
   description             = "This key is used to encrypt bucket objects"
   deletion_window_in_days = 10
 }
 
+#Enable SSE
 resource "aws_s3_bucket_server_side_encryption_configuration" "default_sse" {
   bucket = aws_s3_bucket.genomics_b.bucket
 
