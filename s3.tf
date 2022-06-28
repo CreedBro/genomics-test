@@ -1,6 +1,6 @@
 
 resource "aws_s3_bucket" "genomics_b" {
-  bucket = "genom-06-22-test-bucket"
+  bucket = var.s3_bucket
   acl    = "private"
 
   versioning {
@@ -20,6 +20,8 @@ resource "aws_s3_bucket_public_access_block" "public_block" {
   bucket = aws_s3_bucket.genomics_b.id
 
   restrict_public_buckets = true
+  block_public_acls   = true
+  block_public_policy = true
 }
 
 resource "aws_kms_key" "mykey" {

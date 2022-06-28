@@ -38,3 +38,8 @@ variable "ingress_cidr" {
 variable "key_name" {
     default = "id_rsa"
 }
+
+variable "s3_bucket" {
+  default = "genom-06-22-test-bucket"
+
+}

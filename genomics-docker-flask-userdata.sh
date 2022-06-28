@@ -44,9 +44,9 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-
+    
     s3 = boto3.resource('s3', region_name='us-east-1')
-    bucket = s3.Bucket('genom-06-22-test-bucket')
+    bucket = s3.Bucket('<BUCKET>')
     object = bucket.Object('pexels-lood-goosen-1235706.jpg')
 
     iofile = io.BytesIO()
